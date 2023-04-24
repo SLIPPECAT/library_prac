@@ -1,0 +1,56 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.0.5'
+    id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    //caching
+    implementation group: 'org.ehcache', name: 'jcache', version: '1.0.1'
+    implementation group: 'javax.cache', name: 'cache-api', version: '1.0.0'
+
+    implementation 'org.springframework.data:spring-data-elasticsearch'
+    implementation group: 'org.elasticsearch.client', name: 'elasticsearch-rest-high-level-client', version: '7.17.9'
+
+//    implementation 'co.elastic.clients:elasticsearch-java:8.7.0'
+//    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.3'
+
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
+    implementation 'org.apache.lucene:lucene-core:8.11.1'
+    implementation group: 'org.apache.lucene', name: 'lucene-analysis-common', version: '9.5.0'
+    implementation group: 'org.apache.lucene', name: 'lucene-queryparser', version: '8.8.2'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
+    implementation 'org.apache.lucene:lucene-core:8.8.2'
+
+    implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+    implementation 'com.google.code.gson:gson:2.9.0'
+
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
