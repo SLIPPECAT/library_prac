@@ -1,0 +1,23 @@
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          elasticsearch:
+            client:
+              WIRE=TRACE:
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: wnsdud12!@
+    url: jdbc:mysql://localhost:3306/library_service
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+#  ? ?? ?? ??.
+#  main:
+#    allow-bean-definition-overriding: true
