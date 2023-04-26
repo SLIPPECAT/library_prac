@@ -1,42 +1,32 @@
-//
-//import com.example.caching.search.entity.Book;
-//import com.example.caching.search.repository.CustomBookRepository;
-//import com.example.caching.search.repository.ElasticsearchRepository;
-//import org.springframework.stereotype.Repository;
-//
-////package com.example.caching.search.repository;
-////
-////import com.example.caching.search.entity.Book;
-////import org.springframework.data.domain.Page;
-////import org.springframework.data.domain.Pageable;
-////import org.springframework.data.jpa.repository.JpaRepository;
-////import org.springframework.data.jpa.repository.Query;
-////import org.springframework.data.repository.query.Param;
-////import org.springframework.stereotype.Repository;
-////y
-//public interface BookRepository extends ElasticsearchRepository<Book, Long>{
-////
-////    // 제목검색 FULLTEXT 서치 이용 + 페이징
-////    @Query(value = "SELECT * FROM books WHERE MATCH(TITLE_NM) AGAINST (:query IN BOOLEAN MODE)", nativeQuery = true)
-////    Page<Book> findBooksByTitleNormal(@Param("query") String query, Pageable pageable);
-////
-////    // 제목에 대한 더 넓은 검색
-////    @Query(value = "SELECT * FROM books WHERE MATCH(TITLE_NM) AGAINST (:query IN natural language MODE)", nativeQuery = true)
-////    Page<Book> findBooksByTitleDetail(@Param("query") String query, Pageable pageable);
-////
-////    // 작가검색 FULLTEXT 서치 이용 + 페이징
-////    @Query(value = "SELECT * FROM books WHERE MATCH(AUTHR_NM) AGAINST (:query IN BOOLEAN MODE)", nativeQuery = true)
-////    Page<Book> findBooksByAuthor(@Param("query") String query, Pageable pageable);
-////
-////    // 제목 검색 결과가 없을 경우 재검색을 위한 쿼리
-////    default Page<Book> findBooksByTitleFlexible(String query, Pageable pageable) {
-////        Page<Book> books = findBooksByTitleNormal(query, pageable);
-////        if (books.getContent().isEmpty()) {
-////            books = findBooksByTitleDetail(query, pageable);
-////        }
-////        return books;
-////    }
-////
-////    @Query(value = "SELECT * FROM books WHERE MATCH(ENG_TITLE_NM) AGAINST (:query IN NATURAL LANGUAGE MODE)", nativeQuery = true)
-////    Page<Book> findBooksByEnglishTitleNormal(String query, Pageable pageable);
-//}
+package com.example.caching.search.repository;
+
+import com.example.caching.search.entity.Book;
+import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.elasticsearch.annotations.Query;
+import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
+
+//@NoRepositoryBean
+public interface BookRepository extends ElasticsearchRepository<Book, Integer> {
+
+//	Page<Book> findBooksByTitle(String query, Pageable pageable);
+
+//	@Query("{\"bool\" : "
+//			+ "{\"must\" : {\"match\" : {\"title_nm\" : \"?0\"}}, "
+//			+ "\"should\" : [{\"term\" : {\"title_nm.keyword\" : \"?0\"}}, "
+//			+ "{\"match_phrase\" : {\"title_nm\" : \"?0\"}}]}}")
+	@Query("{\"bool\":{\"should\":[{\"match\":{\"title_nm\":{\"query\":\"?0\"}}}]}}")
+	List<Book> findBooksByTitle(String query);
+
+
+//	@Query("{\"bool\":{\"must\":[{\"match\":{\"title_nm\":\"?0\"}}]}}")
+
+//	@Query("{\"bool\":{\"must\":[{\"match\":{\"title_nm\":\"?0\"}}],\"should\":[{\"term\":{\"title_nm\":\"?0\"}},{\"match_phrase\":{\"title_nm\":\"?0\"}}]}}")
+//@Query("{\"bool\":{\"must\":{\"match\":{\"title_nm\":{\"query\":\"?0\",\"operator\":\"OR\"}}}}}")
+//@Query("{\"bool\":{\"should\":[{\"match\":{\"title_nm\":{\"query\":\"?0\",\"operator\":\"or\"}}},{\"term\":{\"title_nm.keyword\":\"?0\"}},{\"match_phrase\":{\"title_nm\":{\"query\":\"?0\",\"slop\":10}}}]}}")
+	@Query("{\"bool\":{\"should\":[{\"match\":{\"title_nm\":{\"query\":\"?0\"}}}]}}")
+	List<Book> findBooksBySbst(String query);
+
+//	Page<Book> findBooksByAuthor(String query, Pageable pageable);
+}

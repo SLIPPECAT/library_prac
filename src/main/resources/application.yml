@@ -18,6 +18,16 @@ spring:
     hibernate:
       ddl-auto: none
 
+
+  data:
+    elasticsearch:
+      cluster-nodes=localhost:9200:
+
+
+elasticsearch:
+  host: localhost
+  port: 9200
+
 #  ? ?? ?? ??.
 #  main:
 #    allow-bean-definition-overriding: true

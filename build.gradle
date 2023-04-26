@@ -23,6 +23,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.data:spring-data-elasticsearch:5.0.3'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
@@ -30,9 +31,10 @@ dependencies {
 
     //caching
     implementation group: 'org.ehcache', name: 'jcache', version: '1.0.1'
-    implementation group: 'javax.cache', name: 'cache-api', version: '1.0.0'
+    implementation group: 'javax.cache', name: 'cache-api', version: '1.1.1'
 
-    implementation 'org.springframework.data:spring-data-elasticsearch'
+//    implementation 'org.springframework.data:spring-data-elasticsearch'
+    implementation 'org.springframework.data:spring-data-elasticsearch:4.2.4'
     implementation group: 'org.elasticsearch.client', name: 'elasticsearch-rest-high-level-client', version: '7.17.9'
 
 //    implementation 'co.elastic.clients:elasticsearch-java:8.7.0'
@@ -40,14 +42,13 @@ dependencies {
 
     runtimeOnly 'com.mysql:mysql-connector-j'
 
-    implementation 'org.apache.lucene:lucene-core:8.11.1'
-    implementation group: 'org.apache.lucene', name: 'lucene-analysis-common', version: '9.5.0'
-    implementation group: 'org.apache.lucene', name: 'lucene-queryparser', version: '8.8.2'
-    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
-    implementation 'org.apache.lucene:lucene-core:8.8.2'
-
     implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
-    implementation 'com.google.code.gson:gson:2.9.0'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    // 자연어 처리 라이브러리
+    implementation 'edu.stanford.nlp:stanford-corenlp:4.5.2'
+    implementation 'edu.stanford.nlp:stanford-corenlp:4.5.2:models'
+
+
 
 }
 
